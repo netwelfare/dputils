@@ -25,17 +25,16 @@ import com.dputils.pool.object.PooledObject;
  * <p>Object created by {@link WaiterFactory}. Maintains active / valid state,
  * last passivated and idle times.  Waits with configurable latency when
  * {@link #doWait()} method is called.</p>
- *
  * <p>This class is *not* threadsafe.</p>
  */
 public class Waiter
 {
 	private static AtomicInteger instanceCount = new AtomicInteger();
-	private boolean active = false;
+	private boolean active = false; //池化对象无法的激活或者在池子中而已，其他的不要考虑了
 	private boolean valid = true;
-	private long latency = 0;
-	private long lastPassivated = 0;
-	private long lastIdleTimeMs = 0;
+	private long latency = 0; //延迟
+	private long lastPassivated = 0; //钝化时间
+	private long lastIdleTimeMs = 0; //空闲时间
 	private long passivationCount = 0;
 	private long validationCount = 0;
 	private final int id = instanceCount.getAndIncrement();
