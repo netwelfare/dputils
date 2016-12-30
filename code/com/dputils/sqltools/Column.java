@@ -10,6 +10,12 @@ public class Column extends SqlElement
 		this.alias = alias;
 	}
 
+	public Column(Table table, String name)
+	{
+		this.table = table;
+		this.name = name;
+	}
+
 	public Column(Table table, String name, String alias)
 	{
 		this(name, alias);
@@ -25,8 +31,8 @@ public class Column extends SqlElement
 			sb.append(".");
 		}
 		sb.append(name);
-		sb.append(" ");
-		sb.append(alias);
+		//		sb.append(" ");
+		//		sb.append(alias);
 		return sb.toString();
 	}
 }

@@ -1,0 +1,26 @@
+表可有别名，如果表有别名的话，则一定会使用别名。
+列可有别名，列的别名当做一个虚拟列。
+所有的事物则都封装成SqlElement，如果是普通对象，则是使用代码模式
+VirtualTable可以当做列的前缀，使用getName方法；如果当做节点插入list则使用toString方法
+VirtualColumn只当做节点插入list，古只有toString方法
+Table表当做列的前缀的时候，使用getName方法，这个方法规定，必须采用表名.列名的形式；当做节点插入的使用使用toString方法，要显示表名和别名。
+in当做一个整体来对待
+=部分当做一个整体来对待
+
+
+select tb3.report_date, sum(num)
+	from 
+	(
+	    select tb1.report_date as report_date, tb1.hour_value as hour_value, tb1.firm_id as firm_id, count(distinct tb1.account_id) as num
+	    from ODS_NEWACCOUNT_KYLIN tb1 join 
+	    (
+		    select account_id from ods_user_group_kylin 
+		    where product = 'gold' and app in ('lede') and os in ('ios', 'android') and channel in ('netease') and page in ('*Activity', '*Controller')
+	    ) 
+	    tb2 on +tb1.account_id = tb2.account_id
+	    where tb1.product = '' and tb1.report_date between '' and '' 
+	    group by tb1.report_date, tb1.hour_value, tb1.firm_id
+	    order by report_date asc, hour_value asc, firm_id asc
+	) tb3
+	group by tb3.report_date 
+	order by tb3.report_date asc;

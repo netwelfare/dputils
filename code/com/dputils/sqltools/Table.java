@@ -2,6 +2,10 @@ package com.dputils.sqltools;
 
 public class Table extends SqlElement
 {
+	public Table()
+	{
+	}
+
 	public Table(String name, String alias)
 	{
 		this.name = name;
@@ -10,16 +14,11 @@ public class Table extends SqlElement
 
 	public String getName()
 	{
-		return name;
-	}
-
-	public String getFullName()
-	{
-		return alias == null ? name : name + " " + alias;
-	}
-
-	public String getAlias()
-	{
 		return alias == null ? name : alias;
+	}
+
+	public String toString()
+	{
+		return name + " " + alias;
 	}
 }

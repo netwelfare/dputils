@@ -21,11 +21,16 @@ public class Join extends SqlElement
 	public String toString()
 	{
 		StringBuilder sb = new StringBuilder();
+		if (srcTable != null)
+		{
+			sb.append(srcTable.getName());
+		}
+		sb.append(" ");
 		sb.append(joinType);
 		sb.append(" ");
 		sb.append(literal.split(" ")[0]);
 		sb.append(" ");
-		sb.append(destTable.getFullName());
+		sb.append(destTable.getName());
 		sb.append(" ");
 		sb.append(literal.split(" ")[1]);
 		sb.append(" ");
