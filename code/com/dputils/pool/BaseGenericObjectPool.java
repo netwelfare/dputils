@@ -1330,7 +1330,7 @@ public abstract class BaseGenericObjectPool<T>
 	 * @param <T>
 	 *            type of objects in the pool
 	 */
-	static class IdentityWrapper<T>
+	public static class IdentityWrapper<T>
 	{
 		/** Wrapped object */
 		private final T instance;

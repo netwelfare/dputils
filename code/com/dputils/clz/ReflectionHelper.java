@@ -1,5 +1,6 @@
 package com.dputils.clz;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
 public class ReflectionHelper
@@ -28,4 +29,31 @@ public class ReflectionHelper
 			return null;
 		}
 	}
+
+	public static <T> Constructor<T> getConstructor(Class<T> type, Class<?>... argTypes)
+	{
+		try
+		{
+			Constructor<T> c = type.getConstructor(argTypes);
+			return c;
+		}
+		catch (Exception e)
+		{
+			return null;
+		}
+	}
+
+	public static <T> T getObject(Constructor<T> c, Object[] args)
+	{
+		try
+		{
+			Object o = c.newInstance(args);
+			return (T) o;
+		}
+		catch (Exception e)
+		{
+			return null;
+		}
+	}
+
 }

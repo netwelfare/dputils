@@ -1,7 +1,8 @@
 
-
 public class Base
 {
+
+	public String name;
 
 	public Base()
 	{
