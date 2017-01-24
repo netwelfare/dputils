@@ -65,7 +65,7 @@ public class LogFactoryImpl extends LogFactory
 {
 
 	/** Log4JLogger class name */
-	private static final String LOGGING_IMPL_LOG4J_LOGGER = "org.apache.commons.logging.impl.Log4JLogger";
+	private static final String LOGGING_IMPL_LOG4J_LOGGER = "com.dputils.log.impl.Log4JLogger";
 	/** Jdk14Logger class name */
 	private static final String LOGGING_IMPL_JDK14_LOGGER = "com.dputils.log.impl.Jdk14Logger";
 	/** Jdk13LumberjackLogger class name */
@@ -159,8 +159,8 @@ public class LogFactoryImpl extends LogFactory
 	 * but broken/unusable for some reason.
 	 */
 	private static final String[] classesToDiscover =
-	{ LOGGING_IMPL_LOG4J_LOGGER, "org.apache.commons.logging.impl.Jdk14Logger",
-			"org.apache.commons.logging.impl.Jdk13LumberjackLogger", "com.dputils.log.impl.SimpleLog" };
+	{ LOGGING_IMPL_LOG4J_LOGGER, "com.dputils.log.impl.Jdk14Loggerx", "com.dputils.log.impl.Jdk13LumberjackLoggerx",
+			"com.dputils.log.impl.SimpleLog" };
 
 	// ----------------------------------------------------- Instance Variables
 

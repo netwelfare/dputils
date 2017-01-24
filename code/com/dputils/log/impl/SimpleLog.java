@@ -17,10 +17,15 @@
 
 package com.dputils.log.impl;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.URL;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.text.DateFormat;
@@ -83,7 +88,7 @@ public class SimpleLog implements Log, Serializable
 	static protected final Properties simpleLogProps = new Properties();
 
 	/** The default format to use when formating dates */
-	static protected final String DEFAULT_DATE_TIME_FORMAT = "yyyy/MM/dd HH:mm:ss:SSS zzz";
+	static protected final String DEFAULT_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss:SSS zzz";
 
 	/** Include the instance name in the log message? */
 	static volatile protected boolean showLogName = false;
@@ -95,7 +100,7 @@ public class SimpleLog implements Log, Serializable
 	static volatile protected boolean showShortName = true;
 
 	/** Include the current time in the log message */
-	static volatile protected boolean showDateTime = false;
+	static volatile protected boolean showDateTime = true;
 
 	/** The date and time format to use in the log message */
 	static volatile protected String dateTimeFormat = DEFAULT_DATE_TIME_FORMAT;
@@ -394,6 +399,33 @@ public class SimpleLog implements Log, Serializable
 	protected void write(StringBuffer buffer)
 	{
 		System.err.println(buffer.toString());
+
+		try
+		{
+			URL url = ClassLoader.getSystemResource("");
+			URL u = new URL(url + "simple.log");
+			System.out.println(u.getFile());
+			File f = new File(u.getFile());
+			if (!f.exists())
+			{
+				f.createNewFile();
+			}
+			FileWriter fw = new FileWriter(f, true);
+			PrintWriter pw = new PrintWriter(fw);
+			pw.println(buffer.toString());
+			pw.flush();
+			fw.close();
+			pw.close();
+		}
+		catch (IOException e1)
+		{
+
+			e1.printStackTrace();
+		}
+		finally
+		{
+
+		}
 	}
 
 	/**
