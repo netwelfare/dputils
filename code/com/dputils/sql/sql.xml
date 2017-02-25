@@ -1,0 +1,12 @@
+<select>
+<from></from>
+<join></join>
+<on></on>
+<join>
+	<select><from></from><where></where></select>
+</join>
+<on></on>
+<where></where>
+<groupby></groupby>
+<orderby></orderby>
+</select>
