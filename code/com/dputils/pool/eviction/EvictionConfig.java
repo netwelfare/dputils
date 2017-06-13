@@ -17,6 +17,7 @@
 package com.dputils.pool.eviction;
 
 import com.dputils.pool.BaseGenericObjectPool;
+import com.dputils.pool.GenericKeyedObjectPool;
 import com.dputils.pool.GenericObjectPool;
 
 /**
@@ -30,75 +31,84 @@ import com.dputils.pool.GenericObjectPool;
  *
  * @since 2.0
  */
-public class EvictionConfig {
+public class EvictionConfig
+{
 
-    private final long idleEvictTime;
-    private final long idleSoftEvictTime;
-    private final int minIdle;
+	private final long idleEvictTime;
+	private final long idleSoftEvictTime;
+	private final int minIdle;
 
+	/**
+	 * Create a new eviction configuration with the specified parameters.
+	 * Instances are immutable.
+	 *
+	 * @param poolIdleEvictTime Expected to be provided by
+	 *        {@link BaseGenericObjectPool#getMinEvictableIdleTimeMillis()}
+	 * @param poolIdleSoftEvictTime Expected to be provided by
+	 *        {@link BaseGenericObjectPool#getSoftMinEvictableIdleTimeMillis()}
+	 * @param minIdle Expected to be provided by
+	 *        {@link GenericObjectPool#getMinIdle()} or
+	 *        {@link GenericKeyedObjectPool#getMinIdlePerKey()}
+	 */
+	public EvictionConfig(long poolIdleEvictTime, long poolIdleSoftEvictTime, int minIdle)
+	{
+		if (poolIdleEvictTime > 0)
+		{
+			idleEvictTime = poolIdleEvictTime;
+		}
+		else
+		{
+			idleEvictTime = Long.MAX_VALUE;
+		}
+		if (poolIdleSoftEvictTime > 0)
+		{
+			idleSoftEvictTime = poolIdleSoftEvictTime;
+		}
+		else
+		{
+			idleSoftEvictTime = Long.MAX_VALUE;
+		}
+		this.minIdle = minIdle;
+	}
 
-    /**
-     * Create a new eviction configuration with the specified parameters.
-     * Instances are immutable.
-     *
-     * @param poolIdleEvictTime Expected to be provided by
-     *        {@link BaseGenericObjectPool#getMinEvictableIdleTimeMillis()}
-     * @param poolIdleSoftEvictTime Expected to be provided by
-     *        {@link BaseGenericObjectPool#getSoftMinEvictableIdleTimeMillis()}
-     * @param minIdle Expected to be provided by
-     *        {@link GenericObjectPool#getMinIdle()} or
-     *        {@link GenericKeyedObjectPool#getMinIdlePerKey()}
-     */
-    public EvictionConfig(long poolIdleEvictTime, long poolIdleSoftEvictTime,
-            int minIdle) {
-        if (poolIdleEvictTime > 0) {
-            idleEvictTime = poolIdleEvictTime;
-        } else {
-            idleEvictTime = Long.MAX_VALUE;
-        }
-        if (poolIdleSoftEvictTime > 0) {
-            idleSoftEvictTime = poolIdleSoftEvictTime;
-        } else {
-            idleSoftEvictTime  = Long.MAX_VALUE;
-        }
-        this.minIdle = minIdle;
-    }
+	/**
+	 * Obtain the {@code idleEvictTime} for this eviction configuration
+	 * instance.
+	 * <p>
+	 * How the evictor behaves based on this value will be determined by the
+	 * configured {@link EvictionPolicy}.
+	 *
+	 * @return The {@code idleEvictTime} in milliseconds
+	 */
+	public long getIdleEvictTime()
+	{
+		return idleEvictTime;
+	}
 
-    /**
-     * Obtain the {@code idleEvictTime} for this eviction configuration
-     * instance.
-     * <p>
-     * How the evictor behaves based on this value will be determined by the
-     * configured {@link EvictionPolicy}.
-     *
-     * @return The {@code idleEvictTime} in milliseconds
-     */
-    public long getIdleEvictTime() {
-        return idleEvictTime;
-    }
+	/**
+	 * Obtain the {@code idleSoftEvictTime} for this eviction configuration
+	 * instance.
+	 * <p>
+	 * How the evictor behaves based on this value will be determined by the
+	 * configured {@link EvictionPolicy}.
+	 *
+	 * @return The (@code idleSoftEvictTime} in milliseconds
+	 */
+	public long getIdleSoftEvictTime()
+	{
+		return idleSoftEvictTime;
+	}
 
-    /**
-     * Obtain the {@code idleSoftEvictTime} for this eviction configuration
-     * instance.
-     * <p>
-     * How the evictor behaves based on this value will be determined by the
-     * configured {@link EvictionPolicy}.
-     *
-     * @return The (@code idleSoftEvictTime} in milliseconds
-     */
-    public long getIdleSoftEvictTime() {
-        return idleSoftEvictTime;
-    }
-
-    /**
-     * Obtain the {@code minIdle} for this eviction configuration instance.
-     * <p>
-     * How the evictor behaves based on this value will be determined by the
-     * configured {@link EvictionPolicy}.
-     *
-     * @return The {@code minIdle}
-     */
-    public int getMinIdle() {
-        return minIdle;
-    }
+	/**
+	 * Obtain the {@code minIdle} for this eviction configuration instance.
+	 * <p>
+	 * How the evictor behaves based on this value will be determined by the
+	 * configured {@link EvictionPolicy}.
+	 *
+	 * @return The {@code minIdle}
+	 */
+	public int getMinIdle()
+	{
+		return minIdle;
+	}
 }

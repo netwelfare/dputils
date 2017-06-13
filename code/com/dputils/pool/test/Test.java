@@ -11,6 +11,7 @@ public class Test
 		waiterPool.setMaxTotalPerKey(5);
 		waiterPool.setMaxTotal(50);
 		waiterPool.setLifo(false);
+
 		for (int i = 0; i < 10; i++)
 		{
 			final String key = Integer.valueOf(i).toString();
